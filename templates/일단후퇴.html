@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script type="text/javascript" src="../static/lib/smartEditor/js/HuskyEZCreator.js"
+            charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+<h3>Naver Smart Editor 2.0</h3>
+<form action="insertStudentInfoForm" method="post">
+    <div id="smarteditor">
+        <textarea name="editorTxt" id="editorTxt"
+                rows="20" cols="10"
+                placeholder="내용을 입력해주세요"
+                style="width: 500px"></textarea>
+    </div>
+    <input type="button" value="전송" onclick="submitPost()" />
+</form>
+
+<!-- textarea 밑에 script 작성하기 -->
+<script>
+    let oEditors = []
+    smartEditor = function () {
+        console.log("Naver SmartEditor")
+        nhn.husky.EZCreator.createInIFrame({
+            oAppRef: oEditors,
+            elPlaceHolder: "editorTxt",
+            sSkinURI: "../static/lib/smarteditor/SmartEditor2Skin.html",
+            fCreator: "createSEditor2"
+        })
+    }
+
+    $(document).ready(function () {
+        smartEditor()
+    })
+    submitPost = function () {
+        oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", [])
+        let content = document.getElementById("editorTxt").value
+
+        if (content == '') {
+            alert("내용을 입력해주세요.")
+            oEditors.getById["editorTxt"].exec("FOCUS")
+            return
+        } else {
+
+            let post = {
+                content : content
+            }
+
+            $.ajax({
+                type: 'POST',
+                url:"/savePost",
+                data:post,
+                success: function(data){
+
+                    alert(data['msg'])
+                },
+                error: function (jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR)
+                    alert("오류발생")
+                }
+            })
+            console.log(content)
+        }
+    }
+</script>
+</body>
+</html>
