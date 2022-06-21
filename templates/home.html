@@ -14,23 +14,7 @@
 
 
 <!-- nav 상단바  -->
-<div class="header container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-            <!-- <img class="bi me-2" width ="40" height = "32"src="../Images/books.JPG" alt=""
-            style="background-position: center 30%;
-            background-size: cover;"> -->
-            <span class="bi me-2">📚︎</span>
-            <span class="fs-4 text-primary">Reading Record</span>
-        </a>
-
-        <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">홈</a></li>
-            <li class="nav-item"><a href="./board" class="nav-link">기록장</a></li>
-            <li class="nav-item"><a href="./write" class="nav-link">기록하기</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">로그인</a></li>
-        </ul>
-    </header>
+<div id="header" class="header container">
 </div>
 
 
@@ -38,7 +22,6 @@
 <!-- BootStrap grid System 12칸으로 생각 전체 너비를
 ( grid system 사용할 때, 최상단 태그를 class = "container" 로 두면
 grid system이 제대로 작동 안됨 -->
-
 <main>
 
     <div class="container">
@@ -70,25 +53,14 @@ grid system이 제대로 작동 안됨 -->
 
 </main>
 
-
 <!-- footer  -->
-<div class="container footer">
-    <footer class="d-flex flex-wrap justify-content-end align-items-center py-3 my-4 border-top">
-        <div class="col-md-2.5 d-flex align-items-center">
-            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                <svg class="bi" width="30" height="24">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
-            <span class="text-primary">© 2022 Company, Inc</span>
-        </div>
-    </footer>
+<div id="footer" class="container footer">
 </div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-
+<script src="../static/JS/includeHF.js"></script>
 </body>
 </html>

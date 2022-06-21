@@ -28,7 +28,7 @@ function readURL(input){
 
     //이미 미리보기 div 가 존재하다면, 파일 formdata 개수에 따라 몇개의 미리보기가 있는지 text 변경
     if(($('#preview-image-header').length)!=0 ){
-        $('.preview-header').text('미리보기 '+formData.getAll('files').length+'개')
+        $('.preview-header').text('미리보기 '+(image_num+formData.getAll('files').length)+'개')
     }
 }
 
@@ -58,7 +58,6 @@ function sendData(){
         contentType: false,
         processData: false,
         success: function (response) {
-            console.log("123")
             if(response['msg']=='success'){
                 window.location.href=("/board")
             }

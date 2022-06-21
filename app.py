@@ -20,10 +20,26 @@ def home():
 def board():
     return render_template('board.html')
 
+@app.route('/check')
+def check():
+    return render_template('check.html')
 
-@app.route('/write')
+@app.route('/header')
+def header():
+    return render_template('header.html')
+
+@app.route('/footer')
+def footer():
+    return render_template('footer.html')
+
+
+@app.route('/write',methods=["GET"])
 def writePost():
-    return render_template('write.html')
+    post_num = request.args.get('postIdx')
+    if post_num is not None:
+        return render_template('write.html', post_num=post_num, update=True)
+    else:
+        return render_template('write.html')
 
 @app.route('/readPost',methods=["GET"])
 def readPost():

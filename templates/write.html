@@ -1,100 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-  </script>
-  <link rel="stylesheet" href="../static/CSS/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/CSS/style.css">
+    <script>let post_num = '{{post_num}}'</script>
 </head>
 <body>
 
-    <!-- nav 상단바  -->
-    <div class="header container">
-        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-            <span class="bi me-2">📚︎</span>
-            <span class="fs-4 text-primary">Reading Record</span>
-        </a>
+<!-- nav 상단바  -->
+<div id="header" class="header container">
+</div>
 
-        <ul class="nav nav-pills">
-            <li class="nav-item"><a href="/" class="nav-link "  aria-current="page">홈</a></li>
-            <li class="nav-item"><a href="./board" class="nav-link">기록장</a></li>
-            <li class="nav-item"><a href="./write" class="nav-link active">기록하기</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">로그인</a></li>
-        </ul>
-        </header>
-        </div>
-
-
-      <!-- 메인 컨텐츠 -->
-      <main>
-        <!-- 메인 컨텐츠 상단 헤더 컨테이너          -->
-        <div class="container">
-            <div class="py-3" style="display: flex; flex-direction: row; justify-content: space-between">
-                <span class="fs-5 text-primary" style="align-self: flex-start ">✍ 독서 기록하기</span>
-                <div>
-                    <button id="postSaveBtn" type="button" class="btn btn-outline-primary" style="align-self: flex-end">기록작성</button>
-<!--                    <button type="button" class="btn btn-outline-primary" style="align-self: flex-end">기록작성</button>-->
-                </div>
+<!-- 메인 컨텐츠 -->
+<main>
+    <!-- 메인 컨텐츠 상단 헤더 컨테이너          -->
+    <div class="container">
+        <div class="py-3" style="display: flex; flex-direction: row; justify-content: space-between">
+            <span class="fs-5 text-primary" style="align-self: flex-start ">✍ 독서 기록하기</span>
+            <div>
+                <button id="postSaveBtn" type="button" class="btn btn-outline-primary" style="align-self: flex-end">
+                    기록작성
+                </button>
+                <!--                    <button type="button" class="btn btn-outline-primary" style="align-self: flex-end">기록작성</button>-->
             </div>
         </div>
-
-        <!-- 메인 컨텐츠 내용 작성 및 파일 선택 컨테이너-->
-        <div class="container">
-            <!-- 글 작성 컨테이너    -->
-            <div class="row">
-                <div class="form-floating mb-3 p-2">
-                    <input type="text" class="form-control" id="title" >
-                    <label for="title">제목</label>
-                </div>
-            </div>
-
-            <div class="row content">
-                <div class="form-floating">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="textarea"
-                              style="height: 300px"></textarea>
-                </div>
-                <!-- 이미지 파일 선택 input -->
-                <div class="mt-4">
-                    <input style="display: none" onchange="readURL(this);" multiple accept="image/*" type="file" class="form-control" id="inputGroupFile01" aria-describedby="inputGroupFileAddon04" aria-label="Upload" >
-                        <button type="button" class="btn btn-primary">
-                               <label for ="inputGroupFile01">이미지 업로드</label>
-                        </button>
-                </div>
-            </div>
-
-            <!-- 이미지 파일 미리보기 헤더-->
-            <div class="row">
-                <div id="preview-image-header">
-
-                </div>
-            </div>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="preview-image-container">
-            </div>
-        </div>
-        </main>
-
-
-    <!-- footer  -->
-    <div class="container footer">
-      <footer class="d-flex flex-wrap justify-content-end align-items-center py-3 my-4 border-top">
-        <div class="col-md-2.5 d-flex align-items-center">
-          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-          </a>
-          <span class="text-primary">© 2022 Company, Inc</span>
-        </div>
-      </footer>
     </div>
 
+    <!-- 메인 컨텐츠 내용 작성 및 파일 선택 컨테이너-->
+    <div class="container">
+        <!-- 글 작성 컨테이너    -->
+        <div class="row">
+            <div class="form-floating mb-3 p-2">
+                <input type="text" class="form-control" id="title">
+                <label for="title">제목</label>
+            </div>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="../static/JS/upload.js"></script>
+        <div class="row content">
+            <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="textarea"
+                              style="height: 300px"></textarea>
+            </div>
+            <!-- 이미지 파일 선택 input -->
+            <div class="mt-4">
+                <input style="display: none" onchange="readURL(this);" multiple accept="image/*" type="file"
+                       class="form-control" id="inputGroupFile01" aria-describedby="inputGroupFileAddon04"
+                       aria-label="Upload">
+                <button type="button" class="btn btn-primary">
+                    <label for="inputGroupFile01">이미지 업로드</label>
+                </button>
+            </div>
+        </div>
+
+        <!-- 이미지 파일 미리보기 헤더-->
+        <div class="row">
+            <div id="preview-image-header">
+
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="preview-image-container">
+        </div>
+    </div>
+</main>
+
+<!-- footer  -->
+<div id="footer" class="container footer">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script>
+
+</script>
+<script>
+    let image_num=0;
+    let image_list;
+    window.onload = function () {
+        if (post_num != "") {
+            $('#postSaveBtn').text("기록수정")
+            console.log("수정")
+            $.ajax({
+                type: "GET",
+                url: "./getRecord",
+                data: {'postIdx': post_num},
+                success: function (response) {
+                    console.log(response)
+
+                    $('#textarea').val(response['content'])
+                    $("#title").val(response['title'])
+                    if (response['Images'][0] != null) {
+                        image_list=response['Images']
+                        console.log("image_list",image_list)
+                        $('#preview-image-header:not(:has(.preview-header))').append(`<div class="text-primary my-4 preview-header">미리보기</div>`)
+                        image_num= response['Images'].length + formData.getAll('files').length
+                        if (($('#preview-image-header').length) != 0) {
+                            $('.preview-header').text('미리보기 ' + image_num + '개')
+                        }
+
+                        for (let image of response['Images']) {
+                            let temp_html = `<div class="col">
+                        <img src="${image}" alt=""   width="100%" height="225" style="object-fit: contain" >
+                        </div>`
+                            $(`#preview-image-container`).append(temp_html)
+                        }
+
+                    }
+                }
+            })
+        }
+    }
+</script>
+<script src="../static/JS/upload.js"></script>
+<script src="../static/JS/includeHF.js"></script>
 
 </body>
 </html>

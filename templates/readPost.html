@@ -7,6 +7,7 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../static/CSS/style.css">
+    <script>let post_num = '{{post_num}}';</script>
 </head>
 <body>
 <!-- nav 상단바  -->
@@ -33,8 +34,8 @@
         <div class="py-3" style="display: flex; flex-direction: row; justify-content: space-between">
             <span class="fs-5 text-primary" style="align-self: flex-start ">✍ 독서 기록</span>
             <div>
-                <button id="postSaveBtn" type="button" class="btn btn-outline-primary">기록수정</button>
-                <button type="button" class="btn btn-outline-primary">기록삭제</button>
+                <button id="postUpdateBtn" type="button" class="btn btn-outline-primary">기록수정</button>
+                <button id="postDeleteBtn" type="button" class="btn btn-outline-primary">기록삭제</button>
             </div>
         </div>
     </div>
@@ -89,29 +90,10 @@
     </footer>
 </div>
 
-
+<script src="../static/JS/readPost.js"></script>
 <script>
-    let post_num = '{{post_num}}';
-    $.ajax({
-        type: "GET",
-        url: "./getRecord",
-        data: {'postIdx': post_num},
-        success: function (response) {
-            console.log(response)
-            $('#textarea').val(response['content'])
-            $("#title").text(response['title'])
-            if(response['Images'][0]!=null){
-
-                $("#preview-image-header").text('업로드 이미지')
-                for(let image of response['Images']){
-                    let temp_html= `<div class="col">
-                            <img src="${image}" alt=""   width="100%" height="225" style="object-fit: contain" >
-                            </div>`
-                    $(`#preview-image-container`).append(temp_html)
-                }
-
-            }
-        }
+    $('#postUpdateBtn').on("click",function (){
+        window.location.href="/write?postIdx="+post_num+"&update=true"
     })
 </script>
 </body>
