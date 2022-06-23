@@ -13,20 +13,16 @@ app = Flask(__name__)
 # rendering (html 파일 넘겨주기)
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html',page='home')
 
 
 @app.route('/board')
 def board():
-    return render_template('board.html')
-
-@app.route('/check')
-def check():
-    return render_template('check.html')
+    return render_template('board.html',page='board')
 
 @app.route('/header')
 def header():
-    return render_template('header.html')
+    return render_template('header.html',response=board)
 
 @app.route('/footer')
 def footer():
@@ -37,9 +33,9 @@ def footer():
 def writePost():
     post_num = request.args.get('postIdx')
     if post_num is not None:
-        return render_template('write.html', post_num=post_num, update=True)
+        return render_template('write.html', post_num=post_num, update=True, page='write')
     else:
-        return render_template('write.html')
+        return render_template('write.html', page='write')
 
 @app.route('/readPost',methods=["GET"])
 def readPost():
@@ -76,6 +72,7 @@ def savePost():
     text = request.form['text']
     title = request.form['title']
 
+
     # db Collection 개수를 따로 저장 하는 counters collections 에서 게시글 번호
     doc = db.counters.find_one({'$and': [{"collections": 'reading_record'}, {"seq": {"$exists": True}}]})
     if doc is None:
@@ -99,13 +96,71 @@ def savePost():
 
     return jsonify( {'msg': 'success'} )
 
+
+@app.route('/updatePost',methods=["POST"])
+def updatePost():
+    # uploaded 된 다중 이미지 fileList
+    image_files = request.files.getlist("files")
+    # uploaded 된 기록 내용
+    text = request.form['text']
+    title = request.form['title']
+    post_num = request.form['update']
+
+    # 이미지 서버컴에 저장하는 함수 작성
+    if image_files is not None:
+        file_paths = savePostImageInServer(image_files,post_num)
+    else:
+        file_paths = None
+
+    updatePostInDB(title, text, file_paths, post_num)
+    return jsonify({'msg': 'success', 'postIdx': post_num})
+
+
+def updatePostInDB(title, content, file_paths, post_num):
+
+    # 저장 날짜
+    now = datetime.now()
+    update_time = now.strftime("%Y%m%d")
+    print(post_num)
+    prev_data = db.readingRecord.find_one({'postIdx': int(post_num)})
+    print(prev_data)
+    date = prev_data['Date']
+    if 'Images' in prev_data:
+        update_file_paths = prev_data['Images']
+        print("이전 이미지 데이터",update_file_paths)
+    else:
+        update_file_paths = []
+    print("새로운 이미지 경로", file_paths)
+    for image in file_paths:
+        update_file_paths.append(image)
+
+    print(update_file_paths)
+
+    doc = {
+            'postIdx': int(post_num),
+            'title': title,
+            'content': content,
+            'Date': date,
+            'updateDate': update_time,
+            'Images': update_file_paths
+    }
+
+    print("doc", doc)
+    db.readingRecord.replace_one( {'postIdx': int(post_num)}, doc)
+
+
 def savePostInDB(title, content, files_path,post_num):
 
     # 저장 날짜
     now = datetime.now()
     current_time = now.strftime("%Y%m%d")
     # 이미지 경로, 제목, 내용을 이용하여 DB에 저장
-    doc = {'postIdx': post_num, 'title': title, 'content': content, 'Images': files_path, 'Date': current_time}
+    doc = {'postIdx': post_num,
+           'title': title,
+           'content': content,
+           'Images': files_path,
+           'Date': current_time}
+
     db.readingRecord.insert_one(doc)
 
 
