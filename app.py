@@ -3,13 +3,15 @@ from werkzeug.utils import secure_filename
 from pymongo import MongoClient
 from datetime import datetime
 from bson.json_util import dumps
+from flask import flash
+
 import os
 
 client = MongoClient('mongodb+srv://hosung:ghtjd114@Cluster0.rqdya.mongodb.net/?retryWrites=true&w=majority')
 db = client.dbsparta
 
 app = Flask(__name__)
-
+app.secret_key = 'some_secret'
 # rendering (html 파일 넘겨주기)
 @app.route('/')
 def home():
@@ -43,6 +45,8 @@ def readPost():
     return render_template('readPost.html', post_num=post_num)
 
 # 게시글 CRUD API 내용
+
+#  게시글 읽기(불러오기 전체목록 &개별목록) (Read)
 @app.route('/getRecord', methods=["POST","GET"])
 def getRecord():
     # 전체 기록을 전달하는 경우
@@ -63,7 +67,7 @@ def getRecord():
         return jsonify(doc)
 
 
-
+#  게시글 작성 (Create)
 @app.route('/savePost',methods=["POST"])
 def savePost():
     # uploaded 된 다중 이미지 fileList
@@ -97,6 +101,7 @@ def savePost():
     return jsonify( {'msg': 'success'} )
 
 
+#  게시글 수정 (Update)
 @app.route('/updatePost',methods=["POST"])
 def updatePost():
     # uploaded 된 다중 이미지 fileList
@@ -114,6 +119,26 @@ def updatePost():
 
     updatePostInDB(title, text, file_paths, post_num)
     return jsonify({'msg': 'success', 'postIdx': post_num})
+
+
+@app.route('/delete',methods=["GET"])
+def deletePost():
+    postIdx = request.args.get('postIdx')
+    print(postIdx)
+    to_delete_data = db.readingRecord.find_one({'postIdx': int(postIdx)})
+    print(to_delete_data)
+    # 서버에 있는 이미지 파일 삭제
+    if 'Images' in to_delete_data:
+        image_paths = to_delete_data['Images']
+        print(image_paths)
+        for image_path in image_paths:
+            to_delete_file_path=image_path.split("/")[-1]
+            if os.path.isfile(to_delete_file_path):
+                os.remove('./static/Images/'+to_delete_file_path)
+    # db 내용삭제해야겟지
+    db.readingRecord.delete_one({'postIdx': int(postIdx)})
+    flash("게시글 삭제 완료!")
+    return render_template('board.html')
 
 
 def updatePostInDB(title, content, file_paths, post_num):

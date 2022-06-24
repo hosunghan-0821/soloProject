@@ -18,6 +18,13 @@
 </div>
 
 <!-- 메인 컨텐츠 -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{messages[-1]}}")
+        </script>
+    {% endif %}
+{% endwith %}
 <main >
     <div class="container">
         <div class="py-3">

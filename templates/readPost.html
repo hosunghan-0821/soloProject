@@ -10,6 +10,7 @@
     <script>let post_num = '{{post_num}}';let page= '{{page}}';</script>
 </head>
 <body>
+
 <!-- nav 상단바  -->
 <div class="header container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
@@ -94,6 +95,9 @@
 <script>
     $('#postUpdateBtn').on("click",function (){
         window.location.href="/write?postIdx="+post_num+"&update=true"
+    })
+    $('#postDeleteBtn').on("click",function(){
+        window.location.href="/delete?postIdx="+post_num
     })
 </script>
 </body>
