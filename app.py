@@ -21,6 +21,19 @@ def home():
     return render_template('home.html',page='home')
 
 
+@app.route('/bestSellers')
+def bestSellers():
+    best_sellers = list(db.bestSellers.find({}, {'_id': False}))
+    doc = []
+    for best_seller in best_sellers:
+        data = {}
+        data['title']  = best_seller['title']
+        if best_seller['subtitle'] !='':
+            data['sub_title']=best_seller['subtitle']
+        data['image']=best_seller['image']
+        print(data)
+        doc.append(data)
+    return jsonify(doc)
 @app.route('/board')
 def board():
     return render_template('board.html',page='board')
@@ -48,7 +61,6 @@ def readPost():
     return render_template('readPost.html', post_num=post_num)
 
 # 게시글 CRUD API 내용
-
 #  게시글 읽기(불러오기 전체목록 &개별목록) (Read)
 @app.route('/getRecord', methods=["POST","GET"])
 def getRecord():
@@ -221,9 +233,6 @@ def savePostImageInServer(image_files,post_num):
         file_route.append(file_path)
 
     return file_route
-
-
-
 
 
 if __name__=='__main__':
