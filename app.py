@@ -4,9 +4,12 @@ from pymongo import MongoClient
 from datetime import datetime
 from bson.json_util import dumps
 from flask import flash
-
+from bs4 import BeautifulSoup
+import requests
 import os
 
+
+# DB접근 관련
 client = MongoClient('mongodb+srv://hosung:ghtjd114@Cluster0.rqdya.mongodb.net/?retryWrites=true&w=majority')
 db = client.dbsparta
 
