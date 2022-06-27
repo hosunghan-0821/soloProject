@@ -4,8 +4,6 @@ from pymongo import MongoClient
 from datetime import datetime
 from bson.json_util import dumps
 from flask import flash
-from bs4 import BeautifulSoup
-import requests
 import os
 
 

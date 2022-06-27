@@ -33,21 +33,6 @@ grid system이 제대로 작동 안됨 -->
 
     <div class="container">
         <div id="main-cards"class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-<!--            <div  class="col">-->
-<!--                <div class="card">-->
-<!--                    <img src="../static/Images/books.JPG" class="card-img-top" alt="..." width="100%" height="225">-->
-<!--                    <div class="card-body">-->
-<!--                        <p class="card-text">독서를 합시다</p>-->
-<!--                        <div class="d-flex justify-content-between align-items-center">-->
-<!--                            <div class="btn-group">-->
-<!--                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>-->
-<!--                                &lt;!&ndash;                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>&ndash;&gt;-->
-<!--                            </div>-->
-<!--                            <small class="text-muted">9 mins</small>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
     </div>
 
@@ -75,7 +60,6 @@ grid system이 제대로 작동 안됨 -->
                     // console.log(response[i]['title'])
                     let image = response[i]['image']
                     let title = response[i]['title']
-
                     temp_html = `  <div  class="col">
                                 <div class="card">
                                 <img src=${image} class="card-img-top" alt="..." width="100%" height="225">
