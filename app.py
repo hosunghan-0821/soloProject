@@ -34,7 +34,7 @@ def bestSellers():
     return jsonify(doc)
 @app.route('/board')
 def board():
-    return render_template('board.html',page='board')
+    return render_template('board.html', page='board')
 
 @app.route('/header')
 def header():
@@ -45,7 +45,7 @@ def footer():
     return render_template('footer.html')
 
 
-@app.route('/write',methods=["GET"])
+@app.route('/write', methods=["GET"])
 def writePost():
     post_num = request.args.get('postIdx')
     if post_num is not None:
@@ -212,7 +212,7 @@ def savePostImageInServer(image_files,post_num):
 
     # 서버에 저장된 이미지에 접근할 수 있는 경로 작성 (ip/port/directory 활용)
     file_route = []
-    server_ip_port = "127.0.0.1:5000"
+    server_ip_port = "13.125.128.36:5000"
     route = "/static/Images/"
 
     # 파일을 서버 원하는 경로에 저장

@@ -41,7 +41,7 @@ def crawler():
         print(book.select_one("div.title > a").text)
         i = i+1
         #  이제 여기서 DB에 넣기~ 맨처음 대입이라면, insrt_one , 아니라면 순위에 따라서 doc 바꾸기
-        doc = {'rank': i, 'title': title, 'subtitle': subtitle, 'image': 'ggg'}
+        doc = {'rank': i, 'title': title, 'subtitle': subtitle, 'image': image}
         if check_collection is False:
             db.bestSellers.insert_one(doc)
         else:
